@@ -1,0 +1,38 @@
+1:"$Sreact.fragment"
+2:"/C-LangPrep/_next/static/chunks/1ua2kfq9s-me6.js"
+3:I[39756,["$2"],"default"]
+4:I[37457,["$2"],"default"]
+b:I[97367,["$2"],"OutletBoundary"]
+c:"$Sreact.suspense"
+f:"ViewportBoundary"
+10:I[97367,["$2"],"$f"]
+11:"MetadataBoundary"
+12:I[97367,["$2"],"$11"]
+:HL["/C-LangPrep/_next/static/chunks/121pa4afkozko.css","style"]
+6:X
+9:X
+9:C
+a:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":"$0:t:t:d:r:props:children:1:props:children:props:children:props:notFound:0:1:props:style","children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":"$0:t:t:d:r:props:children:1:props:children:props:children:props:notFound:0:1:props:children:props:children:1:props:style","children":404}],["$","div",null,{"style":"$0:t:t:d:r:props:children:1:props:children:props:children:props:notFound:0:1:props:children:props:children:2:props:style","children":["$","h2",null,{"style":"$0:t:t:d:r:props:children:1:props:children:props:children:props:notFound:0:1:props:children:props:children:2:props:children:props:style","children":"This page could not be found."}]}]]}]}]],null,["$","$Lb",null,{"children":["$","$c",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]]}],"p":"$@e","v":null,"s":"$6"}}]]
+7:[["children",{"s":"/_not-found","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}],"p":"$@8","v":"$9","s":"$6"},"c":"$Qa"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/C-LangPrep/_next/static/chunks/121pa4afkozko.css","precedence":"next"}],["$","script","script-0",{"src":"/C-LangPrep/_next/static/chunks/1ua2kfq9s-me6.js","async":true}]],["$","html",null,{"lang":"en","className":"T19VSG_variable _8Li5zG_variable h-full antialiased","children":["$","body",null,{"className":"min-h-full flex flex-col bg-[#fffdf9] text-[#2b2520]","children":["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}],"notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]]}]}]}]]}],"p":"$@5","v":null,"s":"$6"},"c":"$Q7"},"h":{"r":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L10",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes, viewport-fit=cover"}],["$","meta","2",{"name":"theme-color","content":"#f48c06"}]]}],["$","$L12",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$c",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"C Engineering Academy | 150-Level C Mastery, Real Compiler & Systems"}],["$","meta","1",{"name":"description","content":"Comprehensive interactive C engineering platform featuring 150-level progressive curriculum, genuine WebAssembly compiler engine, visual logic block builder, C Error Doctor lab, multi-file linking, everyday machines, systems projects (Redis/Git/DOOM), and complete 32 ISO C keywords & libraries encyclopedia."}],["$","meta","2",{"name":"application-name","content":"C Engineering Academy"}],["$","link","3",{"rel":"author","href":"https://raghavendravarma.vercel.app/"}],["$","meta","4",{"name":"author","content":"Raghavendra Varma"}],["$","link","5",{"rel":"manifest","href":"/C-LangPrep/manifest.json"}],["$","meta","6",{"name":"keywords","content":"C programming,C language learning,online C compiler,WebAssembly C engine,Data Structures in C,Design and Analysis of Algorithms,Pointers in C,C memory management,malloc and free,systems engineering,Redis in C,Git in C,DOOM C engine,32 C keywords,C standard library,Code Monkey C,visual block programming C"}],["$","meta","7",{"name":"creator","content":"Raghavendra Varma"}],["$","meta","8",{"name":"publisher","content":"C Engineering Academy"}],["$","meta","9",{"name":"mobile-web-app-capable","content":"yes"}],["$","meta","10",{"name":"apple-mobile-web-app-title","content":"C Academy"}],["$","meta","11",{"name":"apple-mobile-web-app-status-bar-style","content":"default"}],["$","meta","12",{"property":"og:title","content":"The Complete C Engineering Academy & Interactive Silicon Playground"}],["$","meta","13",{"property":"og:description","content":"Learn C from scratch to systems engineering: 150 missions, real-time compiler, visual blocks, multi-file linking, and memory diagnostics."}],["$","meta","14",{"property":"og:url","content":"https://raghavendravarma.vercel.app/"}],["$","meta","15",{"property":"og:site_name","content":"C Engineering Academy"}],["$","meta","16",{"property":"og:locale","content":"en_IN"}],"$L13","$L14","$L15","$L16","$L17","$L18","$L19","$L1a","$L1b","$L1c"]}]}],null]}],"$L1d"]}],"p":"$@1e","v":null,"s":"$6"}},"a":"$@1f","u":"$@20","b":"lsI2a9FfdoPDnkw5ff25n"}
+21:I[27201,["$2"],"IconMark"]
+d:null
+13:["$","meta","17",{"property":"og:type","content":"website"}]
+14:["$","meta","18",{"name":"twitter:card","content":"summary_large_image"}]
+15:["$","meta","19",{"name":"twitter:creator","content":"@raghavendravarma"}]
+16:["$","meta","20",{"name":"twitter:title","content":"C Engineering Academy | 150-Level C Mastery Platform"}]
+17:["$","meta","21",{"name":"twitter:description","content":"Interactive C platform with real WebAssembly compiler, visual blocks, and systems architectures (Redis, Git, DOOM)."}]
+18:["$","link","22",{"rel":"shortcut icon","href":"/C-LangPrep/c-academy-icon.svg"}]
+19:["$","link","23",{"rel":"icon","href":"/C-LangPrep/c-academy-icon.svg","type":"image/svg+xml"}]
+1a:["$","link","24",{"rel":"icon","href":"/C-LangPrep/favicon.ico","sizes":"any"}]
+1b:["$","link","25",{"rel":"apple-touch-icon","href":"/C-LangPrep/c-academy-icon.svg"}]
+1c:["$","$L21","26",{}]
+1d:["$","meta",null,{"name":"next-size-adjust","content":""}]
+6:300
+20:true
+6:C
+1f:0
+8:"$undefined"
+5:"$undefined"
+1e:"$undefined"
+e:"$undefined"
