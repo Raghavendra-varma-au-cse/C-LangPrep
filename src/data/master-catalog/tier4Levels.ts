@@ -370,10 +370,11 @@ Double pointer (size 8 bytes): Base: 0x -> Base+1: 0x`,
 
 int main(void) {
     int prices[4] = {150, 300, 450, 600};
+    int *ptr = prices;
 
     for (int i = 0; i < 4; i++) {
         printf("Index %d -> Bracket notation: %d | Pointer notation: %d\\n", 
-               i, prices[i], *(prices + i));
+               i, prices[i], *(ptr + i));
     }
     return 0;
 }`
@@ -385,8 +386,9 @@ int main(void) {
 
 int main(void) {
     int p[4] = {150, 300, 450, 600};
+    int *ptr = p;
     for (int i = 0; i < 4; i++) {
-        printf("Index %d -> Bracket notation: %d | Pointer notation: %d\\n", i, p[i], *(p + i));
+        printf("Index %d -> Bracket notation: %d | Pointer notation: %d\\n", i, p[i], *(ptr + i));
     }
     return 0;
 }`
@@ -440,11 +442,11 @@ Index 3 -> Bracket notation: 600 | Pointer notation: 600`,
 int main(void) {
     int volts[5] = {220, 225, 218, 230, 222};
     int *ptr = volts;
-    int *end = volts + 5;
+    int *end = ptr + 5;
 
     printf("Solar Inverter Voltage Telemetry:\\n");
     int sensorNum = 1;
-    while (ptr < end) {
+    while (ptr != end) {
         printf("Sensor %d: %d Volts (at RAM %p)\\n", sensorNum, *ptr, (void*)ptr);
         ptr++;
         sensorNum++;
@@ -459,9 +461,9 @@ int main(void) {
 
 int main(void) {
     int v[5] = {220, 225, 218, 230, 222};
-    int *p = v, *end = v + 5;
+    int *p = v, *end = p + 5;
     printf("Solar Inverter Voltage Telemetry:\\n");
-    for (int s = 1; p < end; s++) {
+    for (int s = 1; p != end; s++) {
         printf("Sensor %d: %d Volts (at RAM %p)\\n", s, *p++, (void*)(p-1));
     }
     return 0;

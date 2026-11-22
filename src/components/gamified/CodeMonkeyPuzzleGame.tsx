@@ -92,7 +92,7 @@ export const CodeMonkeyPuzzleGame: React.FC = () => {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b-2 border-[#ede3d2]">
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-[#fdf5ea] border border-[#f3d4b1] flex items-center justify-center p-2 shadow-2xs">
-            <img src="/c-academy-icon.svg" alt="C Academy Logo" className="w-full h-full object-contain" />
+            <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/c-academy-icon.svg`} alt="C Academy Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <div className="flex items-center gap-2">

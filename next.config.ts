@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   output: isExport ? 'export' : undefined,
   basePath: isExport ? '/C-LangPrep' : '',
   assetPrefix: isExport ? '/C-LangPrep/' : undefined,
+  env: {
+    NEXT_PUBLIC_BASE_PATH: isExport ? '/C-LangPrep' : '',
+  },
   images: {
     unoptimized: true,
   },

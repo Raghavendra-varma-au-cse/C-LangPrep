@@ -2672,7 +2672,7 @@ int main(void) {
 #define SIZE 8
 #define MASK 7
 int tab[SIZE] = {-1,-1,-1,-1,-1,-1,-1,-1};
-void ins(int k) { int i = k & MASK; while (tab[i] != -1) i = (i + 1) & MASK; tab[i] = k; printf("Inserted PIN %d -> Mapped to Bucket [%d]\\n", k, i); }
+void insertKey(int k) { int i = k & MASK; while (tab[i] != -1) i = (i + 1) & MASK; tab[i] = k; printf("Inserted PIN %d -> Mapped to Bucket [%d]\\n", k, i); }
 
 int main(void) {
     printf("India Post Postal PIN Hash Table (Size 7):\\n");

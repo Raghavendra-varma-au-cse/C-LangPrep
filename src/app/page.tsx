@@ -47,7 +47,7 @@ function AcademyAppContent() {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-[#fdf5ea] border border-[#f3d4b1] flex items-center justify-center p-1.5 shadow-2xs shrink-0">
-              <img src="/c-academy-icon.svg" alt="C Academy Icon" className="w-full h-full object-contain" />
+              <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/c-academy-icon.svg`} alt="C Academy Icon" className="w-full h-full object-contain" />
             </div>
             <div>
               <h1 className="text-lg md:text-xl font-black text-[#2b2520] tracking-tight flex items-center gap-2">
@@ -322,7 +322,7 @@ function AcademyAppContent() {
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div className="w-6 h-6 rounded-lg bg-[#fdf5ea] border border-[#f3d4b1] flex items-center justify-center p-1 shrink-0">
-              <img src="/c-academy-icon.svg" alt="C Academy Logo" className="w-full h-full object-contain" />
+              <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/c-academy-icon.svg`} alt="C Academy Logo" className="w-full h-full object-contain" />
             </div>
             <span className="font-bold text-[#2b2520]">The Complete C Engineering Academy</span>
             <span className="text-slate-300 hidden sm:inline">&bull;</span>

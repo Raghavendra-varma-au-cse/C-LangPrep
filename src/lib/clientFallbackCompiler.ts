@@ -220,9 +220,14 @@ export function evaluateCClientSide(code: string, stdin = ''): FallbackCompileRe
 
   // 2b. Check 'const' immutability violations
   const constVarNames = new Set<string>();
-  const constDeclRegex = /(?:const\s+(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:int|float|double|char|long|short|unsigned|struct\s+\w+|\w+)|\b(?:int|float|double|char|long|short|unsigned)\s+const)\s+\*?\s*([A-Za-z_]\w*)/g;
+  const valConstRegex = /(?:^|[;({,\s])(?:const\s+(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:int|float|double|char|long|short|unsigned|struct\s+[A-Za-z_]\w*|[A-Za-z_]\w*)|(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:int|float|double|char|long|short|unsigned)\s+const)\s+([A-Za-z_]\w*)\s*(?:=|;|,|\))/g;
   let constMatch;
-  while ((constMatch = constDeclRegex.exec(code)) !== null) {
+  while ((constMatch = valConstRegex.exec(code)) !== null) {
+    constVarNames.add(constMatch[1]);
+  }
+
+  const constPtrRegex = /\*\s*const\s+([A-Za-z_]\w*)\s*(?:=|;|,|\))/g;
+  while ((constMatch = constPtrRegex.exec(code)) !== null) {
     constVarNames.add(constMatch[1]);
   }
 
@@ -234,8 +239,14 @@ export function evaluateCClientSide(code: string, stdin = ''): FallbackCompileRe
       if (trimmedLine.startsWith('//') || trimmedLine.startsWith('/*')) continue;
 
       for (const varName of constVarNames) {
-        if (lineText.includes('const') && lineText.includes(varName)) continue;
-        const assignRegex = new RegExp(`(?:\\b${varName}\\s*(?:=[^=]|\\+=|-=|\\*=|/=|%=|\\+\\+|--)|(?:\\+\\+|--)\\s*${varName}\\b)`);
+        if (new RegExp(`\\b(?:const|int|float|double|char|long|short|unsigned|void|struct)\\b.*\\b${varName}\\b`).test(lineText)) {
+          continue;
+        }
+        const derefAssign = new RegExp(`\\*\\s*${varName}\\s*(?:=(?!=)|\\+=|-=|\\*=|/=|%=)`);
+        if (derefAssign.test(lineText)) {
+          continue;
+        }
+        const assignRegex = new RegExp(`(?:\\b${varName}\\s*(?:=(?!=)|\\+=|-=|\\*=|/=|%=)|\\b${varName}\\s*(?:\\+\\+|--)|(?:\\+\\+|--)\\s*${varName}\\b)`);
         if (assignRegex.test(lineText)) {
           const col = lineText.indexOf(varName) + 1;
           return {
@@ -258,6 +269,11 @@ export function evaluateCClientSide(code: string, stdin = ''): FallbackCompileRe
   for (let i = 0; i < lines.length; i++) {
     const trimmed = lines[i].trim();
     if (!trimmed || trimmed.startsWith('//') || trimmed.startsWith('/*')) continue;
+
+    // Typedef declarations
+    if (trimmed.startsWith('typedef')) {
+      continue;
+    }
 
     // Macro define
     if (trimmed.startsWith('#define')) {

@@ -48,7 +48,7 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
           <div className="bg-[#fdf5ea] border-b-2 border-[#ede3d2] p-5 md:p-6 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 rounded-2xl bg-white border border-[#f3d4b1] flex items-center justify-center p-2 shadow-2xs shrink-0">
-                <img src="/c-academy-icon.svg" alt="C Academy Logo" className="w-full h-full object-contain" />
+                <img src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/c-academy-icon.svg`} alt="C Academy Logo" className="w-full h-full object-contain" />
               </div>
               <div>
                 <h3 className="text-lg md:text-xl font-black text-[#2b2520] flex items-center gap-2">

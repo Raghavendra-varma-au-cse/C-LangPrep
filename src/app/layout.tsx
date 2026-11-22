@@ -21,10 +21,13 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const isExport = process.env.EXPORT === 'true';
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || (isExport ? '/C-LangPrep' : '');
+
 export const metadata: Metadata = {
   title: "C Engineering Academy | 150-Level C Mastery, Real Compiler & Systems",
   description: "Comprehensive interactive C engineering platform featuring 150-level progressive curriculum, genuine WebAssembly compiler engine, visual logic block builder, C Error Doctor lab, multi-file linking, everyday machines, systems projects (Redis/Git/DOOM), and complete 32 ISO C keywords & libraries encyclopedia.",
-  manifest: "/manifest.json",
+  manifest: `${basePath}/manifest.json`,
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -60,10 +63,11 @@ export const metadata: Metadata = {
   applicationName: "C Engineering Academy",
   icons: {
     icon: [
-      { url: "/c-academy-icon.svg", type: "image/svg+xml" }
+      { url: `${basePath}/c-academy-icon.svg`, type: "image/svg+xml" },
+      { url: `${basePath}/favicon.ico`, sizes: "any" }
     ],
-    shortcut: "/c-academy-icon.svg",
-    apple: "/c-academy-icon.svg"
+    shortcut: `${basePath}/c-academy-icon.svg`,
+    apple: `${basePath}/c-academy-icon.svg`
   },
   openGraph: {
     title: "The Complete C Engineering Academy & Interactive Silicon Playground",

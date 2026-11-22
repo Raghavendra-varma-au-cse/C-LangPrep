@@ -509,13 +509,16 @@ int main(void) {
 
 int main(void) {
     int bogies[6] = {1, 2, 3, 4, 5, 6};
-    for (int i = 0, j = 5; i < j; i++, j--) {
+    int i = 0, j = 5;
+    while (i < j) {
         bogies[i] ^= bogies[j];
         bogies[j] ^= bogies[i];
         bogies[i] ^= bogies[j];
+        i++;
+        j--;
     }
     printf("Reversed Train Bogie Sequence:\\n");
-    for (int i = 0; i < 6; i++) printf("%d ", bogies[i]);
+    for (int k = 0; k < 6; k++) printf("%d ", bogies[k]);
     printf("\\n");
     return 0;
 }`
@@ -1136,9 +1139,10 @@ int main(void) {
 
 int main(void) {
     char trainName[] = "VANDE BHARAT";
-    char *p = trainName;
+    char *start = trainName;
+    char *p = start;
     while (*p) p++;
-    int length = p - trainName;
+    int length = (int)((unsigned long)p - (unsigned long)start);
     printf("Train Name: %s\\nCalculated Character Count: %d\\n", trainName, length);
     return 0;
 }`

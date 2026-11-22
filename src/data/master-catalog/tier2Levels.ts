@@ -168,7 +168,7 @@ int main(void) {
 
 int main(void) {
     int p = 82;
-    const char *g = (p >= 90) ? "A+" : (p >= 75) ? "A" : (p >= 60) ? "B" : "C";
+    const char *g = (p >= 90) ? "A+" : ((p >= 75) ? "A" : ((p >= 60) ? "B" : "C"));
     printf("FINAL GRADE: %s (Distinction)\\n", g);
     return 0;
 }`
