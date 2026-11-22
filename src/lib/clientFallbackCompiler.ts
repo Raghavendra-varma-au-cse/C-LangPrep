@@ -208,7 +208,7 @@ export function evaluateCClientSide(code: string, stdin = ''): FallbackCompileRe
   if (openBraces !== 0) {
     return {
       stdout: '',
-      stderr: openBraces > 0 
+      stderr: openBraces > 0
         ? 'error: expected \'}\' at end of input\nHint: A curly brace \'{\' was left unclosed.'
         : 'error: expected declaration or statement at end of input before \'}\'',
       exitCode: 1,
