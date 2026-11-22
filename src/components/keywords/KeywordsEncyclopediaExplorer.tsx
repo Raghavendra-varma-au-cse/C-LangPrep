@@ -47,7 +47,7 @@ export const KeywordsEncyclopediaExplorer: React.FC = () => {
 
   // Code editor and execution state
   const [activeCode, setActiveCode] = useState<string>(ADVANCED_C_KEYWORDS[0].compilableExample);
-  const [testResult, setTestResult] = useState<{ isSuccess: boolean; output: string } | null>(null);
+  const [testResult, setTestResult] = useState<{ isSuccess: boolean; output: string; exitCode: number } | null>(null);
   const [isTesting, setIsTesting] = useState<boolean>(false);
 
   const keywordCategories = [
@@ -116,19 +116,29 @@ export const KeywordsEncyclopediaExplorer: React.FC = () => {
       if (data.exitCode === 0) {
         setTestResult({
           isSuccess: true,
+          exitCode: 0,
           output: `Compilation & Execution PASSED (exit code 0):\n${data.stdout ? data.stdout : '[Program completed with zero diagnostics errors]'}`
         });
         confetti({ particleCount: 50, spread: 60, origin: { y: 0.85 } });
+      } else if (data.stdout && (!data.stderr || data.stderr.trim().length === 0)) {
+        // Program printed valid stdout and returned non-zero code
+        setTestResult({
+          isSuccess: true,
+          exitCode: data.exitCode ?? 1,
+          output: `${data.stdout}\n\n[Program returned exit code ${data.exitCode}]`
+        });
       } else {
         const errorMsg = data.stderr || data.error || 'Compiler diagnostic tripped.';
         setTestResult({
           isSuccess: false,
+          exitCode: data.exitCode ?? 1,
           output: `Compiler Diagnostic (exit code ${data.exitCode ?? 1}):\n${errorMsg}`
         });
       }
     } catch (err: any) {
       setTestResult({
         isSuccess: false,
+        exitCode: 1,
         output: `Execution error: ${err.message}`
       });
     } finally {
@@ -521,7 +531,9 @@ export const KeywordsEncyclopediaExplorer: React.FC = () => {
                 <Terminal className="w-3.5 h-3.5 text-emerald-400" />
                 Live Execution Console
               </span>
-              <span>exit code 0</span>
+              <span className={testResult ? (testResult.isSuccess ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold') : 'text-slate-400'}>
+                {testResult ? `exit code ${testResult.exitCode}` : 'standby'}
+              </span>
             </div>
 
             {testResult ? (

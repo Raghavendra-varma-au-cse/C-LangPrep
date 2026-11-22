@@ -218,6 +218,39 @@ export function evaluateCClientSide(code: string, stdin = ''): FallbackCompileRe
     };
   }
 
+  // 2b. Check 'const' immutability violations
+  const constVarNames = new Set<string>();
+  const constDeclRegex = /(?:const\s+(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:int|float|double|char|long|short|unsigned|struct\s+\w+|\w+)|\b(?:int|float|double|char|long|short|unsigned)\s+const)\s+\*?\s*([A-Za-z_]\w*)/g;
+  let constMatch;
+  while ((constMatch = constDeclRegex.exec(code)) !== null) {
+    constVarNames.add(constMatch[1]);
+  }
+
+  if (constVarNames.size > 0) {
+    const codeLines = code.split('\n');
+    for (let l = 0; l < codeLines.length; l++) {
+      const lineText = codeLines[l];
+      const trimmedLine = lineText.trim();
+      if (trimmedLine.startsWith('//') || trimmedLine.startsWith('/*')) continue;
+
+      for (const varName of constVarNames) {
+        if (lineText.includes('const') && lineText.includes(varName)) continue;
+        const assignRegex = new RegExp(`(?:\\b${varName}\\s*(?:=[^=]|\\+=|-=|\\*=|/=|%=|\\+\\+|--)|(?:\\+\\+|--)\\s*${varName}\\b)`);
+        if (assignRegex.test(lineText)) {
+          const col = lineText.indexOf(varName) + 1;
+          return {
+            stdout: '',
+            stderr: `file.c:${l + 1}:${col}: error: assignment of read-only variable '${varName}'\nHint: Variables qualified with 'const' are read-only and cannot be reassigned after declaration.`,
+            exitCode: 1,
+            memoryUsageBytes: 0,
+            cpuCyclesEstimated: 0,
+            compilerNotes: ['Const violation: Attempted mutation of read-only variable.']
+          };
+        }
+      }
+    }
+  }
+
   const memoryState: Record<string, any> = {};
   const stdoutLines: string[] = [];
   const lines = code.split('\n');
@@ -231,6 +264,18 @@ export function evaluateCClientSide(code: string, stdin = ''): FallbackCompileRe
       const defMatch = trimmed.match(/^#define\s+([A-Za-z_]\w*)\s+(.*)$/);
       if (defMatch) {
         memoryState[defMatch[1]] = evalCExpression(defMatch[2], memoryState);
+      }
+      continue;
+    }
+
+    // Extern symbol declaration: extern int totalCollegeBikes;
+    if (trimmed.startsWith('extern')) {
+      const extMatch = trimmed.match(/^extern\s+((?:const\s+)?(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:struct\s+\w+|\w+)\s+\*?\s*([A-Za-z_]\w*))\s*;/);
+      if (extMatch) {
+        const varName = extMatch[2];
+        if (memoryState[varName] === undefined) {
+          memoryState[varName] = 0;
+        }
       }
       continue;
     }

@@ -273,7 +273,7 @@ int main(void) {
 
 emergency_stop:
     printf("[ALERT] Emergency shutoff triggered via goto cleanup!\\n");
-    return 1;
+    return 0;
 }`,
     explanation: 'While banned for general spaghetti control flow, `goto` is standard in Linux Kernel and systems programming for centralized error cleanup.',
     commonPitfall: 'Jumping past variable initializations is illegal in C99/C11 and causes undefined behavior.',

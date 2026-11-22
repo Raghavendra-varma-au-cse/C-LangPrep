@@ -20,21 +20,71 @@ if (stdinFilePath && fs.existsSync(stdinFilePath)) {
 }
 
 /**
+ * Validates 'const' immutability rules.
+ * If a program attempts to reassign, increment, or modify a variable declared with 'const',
+ * emit a genuine ISO C compiler diagnostic error.
+ */
+function checkConstViolations(code) {
+  const constVarNames = new Set();
+  const constDeclRegex = /(?:const\s+(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:int|float|double|char|long|short|unsigned|struct\s+\w+|\w+)|\b(?:int|float|double|char|long|short|unsigned)\s+const)\s+\*?\s*([A-Za-z_]\w*)/g;
+  let match;
+  while ((match = constDeclRegex.exec(code)) !== null) {
+    constVarNames.add(match[1]);
+  }
+
+  if (constVarNames.size === 0) return null;
+
+  const lines = code.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
+    if (trimmed.startsWith('//') || trimmed.startsWith('/*')) continue;
+
+    for (const varName of constVarNames) {
+      if (line.includes('const') && line.includes(varName)) continue;
+      const assignRegex = new RegExp(`(?:\\b${varName}\\s*(?:=[^=]|\\+=|-=|\\*=|/=|%=|\\+\\+|--)|(?:\\+\\+|--)\\s*${varName}\\b)`);
+      if (assignRegex.test(line)) {
+        const col = line.indexOf(varName) + 1;
+        return `file.c:${i + 1}:${col}: error: assignment of read-only variable '${varName}'\nHint: Variables qualified with 'const' are read-only and cannot be reassigned after declaration.`;
+      }
+    }
+  }
+  return null;
+}
+
+// 0. Static const check before preprocessing
+const constErr = checkConstViolations(rawSourceCode);
+if (constErr) {
+  process.stderr.write(constErr + '\n');
+  process.exit(1);
+}
+
+/**
  * Preprocessor & Sanitizer for Embedded PicoC C Interpreter:
  * 1. Strips unsupported type qualifiers (const, volatile, inline, restrict, register)
  *    so statements like `const struct Vector3D *v` do not trigger "'const' is undefined".
- * 2. Polyfills common modern C headers: <stdbool.h>, <stdint.h>, <inttypes.h>.
- * 3. Rewrites struct aggregate initializers `struct Name var = { val1, val2, ... };`
- *    into field-by-field assignments so PicoC doesn't throw "can't assign struct from array initializer".
- * 4. Injects simulated keyboard input stream if scanf is called.
+ * 2. Resolves redundant 'extern' forward declarations in single translation units.
+ * 3. Polyfills common modern C headers: <stdbool.h>, <stdint.h>, <inttypes.h>.
+ * 4. Rewrites struct aggregate initializers `struct Name var = { val1, val2, ... };`
+ *    into field-by-field assignments.
  */
 function preprocessCForPicoC(code, stdinInput) {
   let res = code;
 
-  // 1. Remove unsupported qualifiers without altering semantics
+  // 1. Resolve 'extern' forward declarations in single-unit compilation sandbox
+  res = res.replace(/^[ \t]*extern\s+((?:const\s+)?(?:unsigned\s+|signed\s+|short\s+|long\s+)?(?:struct\s+\w+|\w+)\s+\*?\s*([A-Za-z_]\w*))\s*;/gm, (match, fullDecl, varName) => {
+    const restOfCode = res.replace(match, '');
+    const defRegex = new RegExp(`\\b${varName}\\s*(?:=|;|\\[)`);
+    if (defRegex.test(restOfCode)) {
+      return `// extern ${varName}; (forward declaration)`;
+    }
+    return `${fullDecl} = 0; // extern symbol resolved in sandbox`;
+  });
+
+  // 1b. Remove unsupported qualifiers without altering semantics
   res = res.replace(/\b(const|volatile|inline|restrict|register)\b/g, ' ');
 
-  // 1b. Strip compiler pragmas (e.g. #pragma pack, #pragma once)
+  // 1c. Strip compiler pragmas (e.g. #pragma pack, #pragma once)
   res = res.replace(/^[ \t]*#pragma[^\r\n]*/gm, '// pragma ignored');
 
   // 2. Polyfill <stdbool.h>
@@ -51,8 +101,6 @@ function preprocessCForPicoC(code, stdinInput) {
   }
 
   // 3b. Expand comma-separated member declarations inside struct definitions
-  // PicoC requires each struct member to terminate with a semicolon: e.g.
-  // `struct StudentNode *left, *right;` -> `struct StudentNode *left; struct StudentNode *right;`
   res = res.replace(/((?:typedef\s+)?struct(?:\s+[A-Za-z_]\w*)?\s*\{)([^}]+)(\})/g, (all, open, body, close) => {
     const lines = body.split(';');
     const newLines = [];
@@ -79,7 +127,6 @@ function preprocessCForPicoC(code, stdinInput) {
   });
 
   // 4. Transform struct initializers: struct Name var = { ... };
-  // Find all struct definitions and their members
   const structDefs = {};
   const structDefRegex = /struct\s+([A-Za-z_]\w*)\s*\{([^}]+)\};/g;
   let defMatch;
@@ -118,8 +165,6 @@ function preprocessCForPicoC(code, stdinInput) {
   });
 
   // 5. Normalize pointer truthiness tests for PicoC
-  // In standard C, `if (ptr)` evaluates whether ptr is non-NULL.
-  // PicoC strictly requires integer conditions and rejects `char*` without explicit `!= NULL`.
   const pointerNames = new Set();
   const ptrVarRegex = /(?:int|char|float|double|void|struct\s+\w+|\w+)\s*\*\s*([A-Za-z_]\w*)/g;
   let pMatch;
@@ -143,8 +188,22 @@ function preprocessCForPicoC(code, stdinInput) {
 
 const sanitizedCode = preprocessCForPicoC(rawSourceCode, userStdin);
 
-let outputLines = [];
-let hasError = false;
+const programOutputs = [];
+const compilerErrors = [];
+let hasCompilerError = false;
+
+function isPicoCCompilerDiagnostic(text) {
+  return (
+    /(?:file\.c|\.c):\d+:(?:\d+:)?\s+/i.test(text) ||
+    /^\s*\^\s*$/.test(text) ||
+    text.includes('file.c:') ||
+    text.includes('undefined variable') ||
+    text.includes('undeclared') ||
+    text.includes('can\'t assign') ||
+    text.includes('semicolon expected') ||
+    text.includes('expression expected')
+  );
+}
 
 // Intercept process.exit so Emscripten abort/exit doesn't terminate before flushing diagnostics
 const originalExit = process.exit.bind(process);
@@ -153,18 +212,19 @@ let flushed = false;
 function flushOutputs(exitCode) {
   if (flushed) return;
   flushed = true;
-  const isErr = hasError || (exitCode !== 0 && exitCode !== undefined);
-  const text = outputLines.join('\n').trim();
-  if (isErr) {
-    if (text) process.stderr.write(text + '\n');
+
+  if (hasCompilerError) {
+    const errText = compilerErrors.join('\n').trim();
+    if (errText) process.stderr.write(errText + '\n');
   } else {
-    if (text) process.stdout.write(text + '\n');
+    const stdoutText = programOutputs.join('\n').trim();
+    if (stdoutText) process.stdout.write(stdoutText + '\n');
   }
 }
 
 process.exit = function(code) {
   flushOutputs(code);
-  originalExit(code);
+  originalExit(hasCompilerError ? 1 : code);
 };
 
 process.on('exit', (code) => {
@@ -176,28 +236,20 @@ try {
 
   runC(sanitizedCode, (output) => {
     if (typeof output === 'string') {
-      outputLines.push(output);
-      if (
-        output.includes('expected') ||
-        output.includes('error:') ||
-        output.includes('Error:') ||
-        output.includes('undefined') ||
-        output.includes('undeclared') ||
-        output.includes('not recognized') ||
-        output.includes('invalid') ||
-        output.includes('unknown') ||
-        output.includes('not expected')
-      ) {
-        hasError = true;
+      if (isPicoCCompilerDiagnostic(output)) {
+        compilerErrors.push(output);
+        hasCompilerError = true;
+      } else {
+        programOutputs.push(output);
       }
     }
   });
 
   setTimeout(() => {
-    process.exit(hasError ? 1 : 0);
+    process.exit(hasCompilerError ? 1 : 0);
   }, 120);
 } catch (err) {
-  outputLines.push(err.message || String(err));
-  hasError = true;
+  compilerErrors.push(err.message || String(err));
+  hasCompilerError = true;
   process.exit(1);
 }
