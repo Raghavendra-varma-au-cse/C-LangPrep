@@ -117,8 +117,72 @@ function createWindow(localPort) {
   });
 }
 
+async function captureAllScreenshots() {
+  const screenshotsDir = path.join(__dirname, '..', 'public', 'screenshots');
+  if (!fs.existsSync(screenshotsDir)) fs.mkdirSync(screenshotsDir, { recursive: true });
+
+  const win = new BrowserWindow({
+    width: 1440,
+    height: 920,
+    show: false,
+    webPreferences: {
+      offscreen: true
+    }
+  });
+
+  console.log('Loading app for desktop screenshots...');
+  await win.loadURL('http://localhost:3000');
+  await new Promise(r => setTimeout(r, 3500));
+
+  const captureTab = async (tabName, filename) => {
+    await win.webContents.executeJavaScript(`
+      (() => {
+        const buttons = Array.from(document.querySelectorAll('header button, nav button, div button'));
+        const target = buttons.find(b => b.innerText && b.innerText.includes('${tabName}'));
+        if (target) target.click();
+      })()
+    `);
+    await new Promise(r => setTimeout(r, 2000));
+    const img = await win.webContents.capturePage();
+    fs.writeFileSync(path.join(screenshotsDir, filename), img.toPNG());
+    console.log('Saved: ' + filename);
+  };
+
+  await captureTab('150-Level Journey', '01-hero-curriculum-150.png');
+  await captureTab('Error Doctor Lab', '02-c-error-doctor-lab.png');
+  await captureTab('Visual Block Builder', '03-visual-block-studio.png');
+  await captureTab('Systems', '04-systems-engineering-lab.png');
+  await captureTab('Live C Compiler', '05-live-compiler-telemetry.png');
+  await captureTab('32 Keywords', '06-keywords-encyclopedia.png');
+  await captureTab('Everyday Machines', '07-everyday-machines.png');
+  await captureTab('Global Resources', '08-global-c-resources.png');
+
+  // Mobile Viewport (412x915 - Android & iPhone)
+  win.setSize(412, 915);
+  await new Promise(r => setTimeout(r, 2000));
+  const mobileImg = await win.webContents.capturePage();
+  fs.writeFileSync(path.join(screenshotsDir, '09-mobile-responsive-android-ios.png'), mobileImg.toPNG());
+  console.log('Saved: 09-mobile-responsive-android-ios.png');
+
+  // Tablet Viewport (820x1000 - iPad & Android Tablet)
+  win.setSize(820, 1000);
+  await new Promise(r => setTimeout(r, 2000));
+  const tabletImg = await win.webContents.capturePage();
+  fs.writeFileSync(path.join(screenshotsDir, '10-tablet-responsive-ipad.png'), tabletImg.toPNG());
+  console.log('Saved: 10-tablet-responsive-ipad.png');
+
+  win.destroy();
+
+  console.log('All 10 real screenshots captured successfully!');
+  app.quit();
+}
+
 // App lifecycle
 app.whenReady().then(() => {
+  if (process.env.SCREENSHOT_MODE === '1') {
+    captureAllScreenshots();
+    return;
+  }
   if (process.platform === 'win32') {
     app.setAppUserModelId('com.cacademy.app');
   }

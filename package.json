@@ -17,6 +17,9 @@
     "dist:win": "npm run export && electron-builder --win",
     "dist:mac": "npm run export && electron-builder --mac",
     "dist:linux": "npm run export && electron-builder --linux",
+    "dist:linux:deb": "npm run export && electron-builder --linux deb",
+    "dist:linux:rpm": "npm run export && electron-builder --linux rpm",
+    "dist:linux:appimage": "npm run export && electron-builder --linux AppImage",
     "lint": "eslint"
   },
   "build": {
@@ -61,7 +64,9 @@
     "linux": {
       "target": [
         "AppImage",
-        "deb"
+        "deb",
+        "rpm",
+        "tar.gz"
       ],
       "icon": "build/icon.png",
       "category": "Education"

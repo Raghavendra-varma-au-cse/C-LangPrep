@@ -16,11 +16,20 @@ export const viewport: Viewport = {
   themeColor: "#f48c06",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
   title: "C Engineering Academy | 150-Level C Mastery, Real Compiler & Systems",
   description: "Comprehensive interactive C engineering platform featuring 150-level progressive curriculum, genuine WebAssembly compiler engine, visual logic block builder, C Error Doctor lab, multi-file linking, everyday machines, systems projects (Redis/Git/DOOM), and complete 32 ISO C keywords & libraries encyclopedia.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "C Academy",
+  },
   keywords: [
     "C programming",
     "C language learning",

@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   X, 
-  Laptop, 
   Download, 
   CheckCircle2, 
   ExternalLink, 
@@ -12,7 +11,8 @@ import {
   Sparkles,
   Monitor,
   Apple,
-  Cpu
+  Cpu,
+  Smartphone
 } from 'lucide-react';
 
 interface DesktopDownloadModalProps {
@@ -24,7 +24,7 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [selectedOS, setSelectedOS] = useState<'win' | 'mac' | 'linux'>('win');
+  const [selectedOS, setSelectedOS] = useState<'win' | 'mac' | 'linux' | 'mobile'>('win');
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
 
   if (!isOpen) return null;
@@ -52,13 +52,13 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
               </div>
               <div>
                 <h3 className="text-lg md:text-xl font-black text-[#2b2520] flex items-center gap-2">
-                  <span>Download Desktop Edition</span>
+                  <span>Download Desktop &amp; Mobile Edition</span>
                   <span className="text-[10px] uppercase tracking-wider bg-[#e57e25] text-white px-2 py-0.5 rounded-full font-bold">
                     v1.0.0
                   </span>
                 </h3>
                 <p className="text-xs text-[#7d7065] font-medium">
-                  One-click native installers &amp; desktop shortcut creator for Windows, macOS, and Linux
+                  Cross-platform installers for Windows, macOS, Linux, and 1-tap mobile/tablet PWA
                 </p>
               </div>
             </div>
@@ -71,10 +71,10 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
           </div>
 
           {/* OS Switcher Tabs */}
-          <div className="px-6 pt-4 pb-2 border-b border-[#ede3d2] flex items-center gap-2 bg-white">
+          <div className="px-6 pt-4 pb-2 border-b border-[#ede3d2] flex items-center gap-2 bg-white overflow-x-auto">
             <button
               onClick={() => setSelectedOS('win')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 cursor-pointer ${
                 selectedOS === 'win'
                   ? 'bg-[#2b2520] text-white shadow-xs'
                   : 'bg-[#fdf5ea] text-[#7d7065] hover:bg-[#faebd7]'
@@ -85,7 +85,7 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
             </button>
             <button
               onClick={() => setSelectedOS('mac')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 cursor-pointer ${
                 selectedOS === 'mac'
                   ? 'bg-[#2b2520] text-white shadow-xs'
                   : 'bg-[#fdf5ea] text-[#7d7065] hover:bg-[#faebd7]'
@@ -96,14 +96,25 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
             </button>
             <button
               onClick={() => setSelectedOS('linux')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 cursor-pointer ${
                 selectedOS === 'linux'
                   ? 'bg-[#2b2520] text-white shadow-xs'
                   : 'bg-[#fdf5ea] text-[#7d7065] hover:bg-[#faebd7]'
               }`}
             >
               <Cpu className="w-4 h-4 text-[#e57e25]" />
-              <span>Linux (.AppImage / .deb)</span>
+              <span>Linux (Ubuntu / Fedora / Arch)</span>
+            </button>
+            <button
+              onClick={() => setSelectedOS('mobile')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 cursor-pointer ${
+                selectedOS === 'mobile'
+                  ? 'bg-[#2b2520] text-white shadow-xs'
+                  : 'bg-[#fdf5ea] text-[#7d7065] hover:bg-[#faebd7]'
+              }`}
+            >
+              <Smartphone className="w-4 h-4 text-[#e57e25]" />
+              <span>Mobile &amp; Tablet (PWA)</span>
             </button>
           </div>
 
@@ -138,18 +149,13 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
 
                 {/* Method 2: Single-Click Script Installer */}
                 <div className="p-4 rounded-2xl border-2 border-[#ede3d2] bg-white space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h4 className="text-sm font-black text-[#2b2520] flex items-center gap-2">
-                        <Terminal className="w-4 h-4 text-[#e57e25]" />
-                        <span>Single-Click Local Port Launcher (install-desktop-app.bat)</span>
-                      </h4>
-                      <p className="text-xs text-[#7d7065]">
-                        Clones and serves on your local port (3000) while creating the official desktop shortcut icon on your Desktop screen.
-                      </p>
-                    </div>
-                  </div>
-
+                  <h4 className="text-sm font-black text-[#2b2520] flex items-center gap-2">
+                    <Terminal className="w-4 h-4 text-[#e57e25]" />
+                    <span>Single-Click Local Port Launcher (install-desktop-app.bat)</span>
+                  </h4>
+                  <p className="text-xs text-[#7d7065]">
+                    Clones and serves on your local port (3000) while creating the official desktop shortcut icon on your Desktop screen.
+                  </p>
                   <div className="bg-[#2b2520] text-white p-3 rounded-xl font-mono text-xs flex items-center justify-between overflow-x-auto">
                     <code>git clone https://github.com/Raghavendra-varma-au-cse/C-LangPrep.git &amp;&amp; cd C-LangPrep &amp;&amp; .\install-desktop-app.bat</code>
                     <button
@@ -215,14 +221,14 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
                 <div className="p-4 rounded-2xl border-2 border-[#e57e25]/30 bg-[#fdf5ea]/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-black text-sm text-[#2b2520]">Linux Packages (.AppImage &amp; .deb)</span>
-                      <span className="text-[10px] font-bold bg-[#e57e25] text-white px-2 py-0.5 rounded-full">Portable</span>
+                      <span className="font-black text-sm text-[#2b2520]">Linux Packages (.AppImage, .deb, .rpm)</span>
+                      <span className="text-[10px] font-bold bg-[#e57e25] text-white px-2 py-0.5 rounded-full">Universal</span>
                     </div>
                     <p className="text-xs text-[#7d7065]">
-                      Self-contained executable for Ubuntu, Debian, Fedora, Arch, and Manjaro. Zero installation dependencies.
+                      Supports Ubuntu &amp; Debian (.deb), Fedora &amp; RedHat (.rpm), and Universal portable (.AppImage).
                     </p>
                     <div className="text-[11px] font-mono text-[#e57e25] font-semibold">
-                      Packages: The-Complete-C-Academy.AppImage &bull; .deb
+                      Packages: The-Complete-C-Academy.AppImage &bull; .deb &bull; .rpm
                     </div>
                   </div>
                   <a
@@ -252,6 +258,53 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
                     >
                       {copiedCmd === 'linux-sh' ? 'Copied!' : 'Copy'}
                     </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {selectedOS === 'mobile' && (
+              <div className="space-y-4">
+                <div className="p-4 rounded-2xl border-2 border-[#e57e25]/30 bg-[#fdf5ea]/40 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Smartphone className="w-5 h-5 text-[#e57e25]" />
+                    <span className="font-black text-sm text-[#2b2520]">Instant 1-Tap Mobile &amp; Tablet App (PWA)</span>
+                    <span className="text-[10px] font-bold bg-[#e57e25] text-white px-2 py-0.5 rounded-full">Zero Store Download</span>
+                  </div>
+                  <p className="text-xs text-[#7d7065]">
+                    The academy is engineered as an ultra-responsive Progressive Web App that works seamlessly on all Android phones, iPhones, iPads, and Android tablets with full-screen native execution and zero browser address bars.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Android Install Guide */}
+                  <div className="p-4 rounded-2xl border-2 border-[#ede3d2] bg-white space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xl">🤖</span>
+                      <h4 className="font-black text-sm text-[#2b2520]">Android Phone &amp; Tablet</h4>
+                    </div>
+                    <ol className="text-xs text-[#7d7065] space-y-2 list-decimal list-inside">
+                      <li>Open <strong className="text-[#2b2520]">Chrome</strong> or <strong className="text-[#2b2520]">Edge</strong> on your device.</li>
+                      <li>Visit the live web app: <a href="https://raghavendra-varma-au-cse.github.io/C-LangPrep/" target="_blank" rel="noopener noreferrer" className="text-[#e57e25] font-bold underline">C Academy</a>.</li>
+                      <li>Tap the three dots <strong className="text-[#2b2520]">⋮ (Menu)</strong> in the top right.</li>
+                      <li>Tap <strong className="text-[#2b2520]">&quot;Install App&quot;</strong> or <strong className="text-[#2b2520]">&quot;Add to Home Screen&quot;</strong>.</li>
+                      <li>The high-res C Academy icon is placed directly on your phone/tablet home screen!</li>
+                    </ol>
+                  </div>
+
+                  {/* iOS Install Guide */}
+                  <div className="p-4 rounded-2xl border-2 border-[#ede3d2] bg-white space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Apple className="w-5 h-5 text-[#2b2520]" />
+                      <h4 className="font-black text-sm text-[#2b2520]">iPhone &amp; iPad (iOS)</h4>
+                    </div>
+                    <ol className="text-xs text-[#7d7065] space-y-2 list-decimal list-inside">
+                      <li>Open <strong className="text-[#2b2520]">Safari</strong> on your iPhone or iPad.</li>
+                      <li>Visit: <a href="https://raghavendra-varma-au-cse.github.io/C-LangPrep/" target="_blank" rel="noopener noreferrer" className="text-[#e57e25] font-bold underline">C Academy</a>.</li>
+                      <li>Tap the <strong className="text-[#2b2520]">Share icon (square with arrow up)</strong> at the bottom bar.</li>
+                      <li>Scroll down and tap <strong className="text-[#2b2520]">&quot;Add to Home Screen&quot;</strong>.</li>
+                      <li>Tap <strong className="text-[#2b2520]">Add</strong>. Launches in dedicated full-screen mode like a native App Store app!</li>
+                    </ol>
                   </div>
                 </div>
               </div>

@@ -47,6 +47,7 @@
   - [8. Real-Time WebAssembly Compiler Sandbox](#8-real-time-webassembly-compiler-sandbox)
   - [9. 32 ISO C Keywords & Standard Library Compendium](#9-32-iso-c-keywords--standard-library-compendium)
   - [10. Global C Learning Ecosystem & Curated Paths](#10-global-c-learning-ecosystem--curated-paths)
+- [Mobile, Tablet & Cross-Device Responsiveness (Android & iOS PWA)](#-mobile-tablet--cross-device-responsiveness-android--ios-pwa)
 - [Smart C Detective & Hidden Traps](#-smart-c-detective--hidden-traps)
 - [Local Development & Quickstart](#-local-development--quickstart)
 - [GitHub Pages Continuous Deployment (CI/CD)](#-github-pages-continuous-deployment-cicd)
@@ -111,9 +112,12 @@ The Complete C Engineering Academy can be executed as a native desktop applicati
 | **Windows** | `Setup.exe` (NSIS) | x64 | Single-click installer; creates Desktop & Start Menu shortcut icons |
 | **Windows** | `Portable.exe` | x64 | Standalone executable; zero installation required |
 | **Windows** | `install-desktop-app.bat` | Universal | Single-click script that creates the desktop shortcut icon and serves on `localhost:3000` |
-| **macOS** | `.dmg` / `.zip` | Universal (Apple Silicon & Intel) | Drag-and-drop installer for macOS |
-| **macOS / Linux** | `install-desktop-app.sh` | Universal | Creates desktop launcher (`.command` / `.desktop`) and runs local engine |
-| **Linux** | `.AppImage` / `.deb` | x64 | Native binaries for Ubuntu, Debian, Fedora, and Arch |
+| **macOS** | `.dmg` / `.zip` | Universal (Apple Silicon & Intel) | Drag-and-drop native installer for macOS |
+| **macOS / Linux** | `install-desktop-app.sh` | Universal | Auto-detects OS; creates desktop launcher (`.command` / `.desktop`) and runs local engine |
+| **Ubuntu / Debian** | `.deb` | x64 | Native Debian package for Ubuntu, Mint, and Pop!_OS |
+| **Fedora / RHEL** | `.rpm` | x64 | Native RPM package for Fedora, CentOS, RHEL, and openSUSE |
+| **Universal Linux** | `.AppImage` / `.tar.gz` | x64 | Standalone binaries for all Linux distributions |
+| **Android / iOS** | `PWA Manifest` | Phone & Tablet | 1-tap "Add to Home Screen" with native standalone full-screen execution |
 
 ---
 
@@ -147,6 +151,10 @@ chmod +x install-desktop-app.sh
 ### 1. 150-Level Progressive Silicon Curriculum
 A comprehensive 5-tier engineering progression taking learners from elementary memory mechanics to advanced algorithmic data structures:
 
+<p align="center">
+  <img src="public/screenshots/01-hero-curriculum-150.png" alt="150-Level Progressive Curriculum" width="100%" />
+</p>
+
 | Tier | Levels | Curriculum Focus | Practical Capstone Project |
 | :--- | :---: | :--- | :--- |
 | **Tier 1: Foundations & Silicon Memory** | 1–30 | Memory byte allocation, format specifiers, ASCII mapping, bitwise manipulation, operator precedence | Indian Kirana Store GST Billing Engine (`₹`) |
@@ -159,6 +167,11 @@ A comprehensive 5-tier engineering progression taking learners from elementary m
 
 ### 2. C Error Doctor & Diagnostic Lab
 Engineered for mastering the art of troubleshooting realistic multi-bug codebases:
+
+<p align="center">
+  <img src="public/screenshots/02-c-error-doctor-lab.png" alt="C Error Doctor Diagnostic Lab" width="100%" />
+</p>
+
 - **Large Production Files (50+ Lines)**: Diagnose and resolve 3 to 4 simultaneous bugs per challenge across real industrial scenarios (Indian Railway Ticket Reservation Systems, ICU Vital Signs Telemetry Monitors, Metro AFC Gateways).
 - **Tri-Category Classification**: Teaches precise identification between **Compiler Syntax Violations**, **Linker Collisions**, and **Runtime Memory Faults** (`SIGSEGV`, uninitialized pointers, integer overflow).
 
@@ -174,6 +187,11 @@ Visualizes how the C compilation pipeline separates translation units:
 
 ### 4. Visual C Block Studio
 Dual visual construction environments bridging visual logic and native C syntax:
+
+<p align="center">
+  <img src="public/screenshots/03-visual-block-studio.png" alt="Visual C Block Studio" width="100%" />
+</p>
+
 - **C Code Reassembly Puzzles**: Organize shuffled C statements into functionally correct algorithmic order to earn progression rewards.
 - **Freeform Visual Block Lab**: Assemble programs using 35+ Lego-like modular blocks spanning 10 distinct language categories (Variables, Logic, Loops, Arrays, Strings, Functions, Pointers, Structs, IO). Generates clean, compilable ISO C11 code in real-time.
 
@@ -189,6 +207,11 @@ Step-by-step instruction visualizer showing exact hardware states at each phase 
 
 ### 6. Everyday Embedded Systems Simulator
 Interactive simulators modeling embedded microcontrollers powering real-world machines:
+
+<p align="center">
+  <img src="public/screenshots/07-everyday-machines.png" alt="Everyday Embedded Systems Simulator" width="100%" />
+</p>
+
 - **Fully Automatic Washing Machine**: Cycle sequencing, water level sensors, and motor speed PWM control.
 - **Microwave Oven Controller**: Magnetron timing, safety door switch interlocking, and thermal duty cycles.
 - **Drone Flight Stabilization**: IMU pitch/roll/yaw telemetry processing and motor thrust equalization.
@@ -198,6 +221,11 @@ Interactive simulators modeling embedded microcontrollers powering real-world ma
 
 ### 7. Foundational Systems Engineering Models
 Compilable, educational reference implementations written from scratch to illustrate computer systems foundations:
+
+<p align="center">
+  <img src="public/screenshots/04-systems-engineering-lab.png" alt="Foundational Systems Engineering Models" width="100%" />
+</p>
+
 - **In-Memory Key-Value Store**: Demonstrates dynamic string memory allocation, key hashing, and $O(1)$ fast lookups.
 - **Content-Addressable Storage Engine**: Models cryptographic blob hashing and immutable tree indexing.
 - **Preemptive Operating System Scheduler**: Simulates process control blocks (PCBs), priority scheduling, and round-robin CPU quantum slicing.
@@ -207,6 +235,11 @@ Compilable, educational reference implementations written from scratch to illust
 ---
 
 ### 8. Real-Time WebAssembly Compiler Sandbox
+
+<p align="center">
+  <img src="public/screenshots/05-live-compiler-telemetry.png" alt="Real-Time WebAssembly Compiler Sandbox" width="100%" />
+</p>
+
 - In-browser code editor with instant compilation and execution.
 - Interactive standard input (`stdin`) allowing live console data entry for `scanf`, `fgets`, and `getchar`.
 - Telemetry readout tracking dynamic byte allocation and CPU execution cycles.
@@ -214,6 +247,11 @@ Compilable, educational reference implementations written from scratch to illust
 ---
 
 ### 9. 32 ISO C Keywords & Standard Library Compendium
+
+<p align="center">
+  <img src="public/screenshots/06-keywords-encyclopedia.png" alt="32 ISO C Keywords and Standard Libraries" width="100%" />
+</p>
+
 - **32 Standard ISO Keywords**: Exhaustive architectural breakdown covering assembly mappings, silicon implications, best practices, and common misconceptions.
 - **Standard Library Modules**: Complete API specifications and runnable examples for `<stdio.h>`, `<stdlib.h>`, `<string.h>`, `<math.h>`, `<ctype.h>`, `<time.h>`, `<stdbool.h>`, and `<stdint.h>`.
 - **Preprocessor Macro Guide**: Deep explanations of `#define`, `#include`, `#pragma`, header inclusion safety, and token concatenation.
@@ -221,11 +259,34 @@ Compilable, educational reference implementations written from scratch to illust
 ---
 
 ### 10. Global C Learning Ecosystem & Curated Paths
+
+<p align="center">
+  <img src="public/screenshots/08-global-c-resources.png" alt="Curated Global C Learning Ecosystem" width="100%" />
+</p>
+
 Curated directory linking learners to 18 reputable open learning platforms organized across 4 learning phases:
 - **Phase 1: Visual & Algorithmic Logic**: CodeMonkey, Code.org, Google Blockly Games.
 - **Phase 2: Zero-Install Online Compilers**: Programiz Compiler, CodeChef IDE, W3Schools Practice, WayToC, PythonTutor C Visualizer, OnlineGDB, Compiler Explorer (Godbolt).
 - **Phase 3: Formal Concept References**: W3Schools C, Programiz C Reference, Learn-C.org, DataCode C, cppreference.com.
 - **Phase 4: Problem Solving & Competitive Tracks**: CodeChef Practice Track, HackerRank C Domain, Exercism C Track, LeetCode C.
+
+---
+
+## 📱 Mobile, Tablet & Cross-Device Responsiveness (Android & iOS PWA)
+
+The Complete C Engineering Academy is engineered to deliver a fluid, high-performance experience across all screen sizes and form factors — from mobile phones to high-resolution tablets and desktop displays.
+
+<p align="center">
+  <img src="public/screenshots/09-mobile-responsive-android-ios.png" width="40%" alt="Mobile Responsive View" />
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="public/screenshots/10-tablet-responsive-ipad.png" width="55%" alt="Tablet Responsive View" />
+</p>
+
+### Key Cross-Device Capabilities:
+- **Progressive Web App (PWA)**: Installable directly to your Home screen from Chrome on Android or Safari on iOS without an App Store middleman.
+- **Standalone Native Viewport**: Executes in full-screen immersion with zero URL navigation bars.
+- **Touch-Optimized Controls**: High-contrast, tactile hit targets with minimum 44px tap bounds for smooth coding on touchscreens and stylus tablets.
+- **Adaptive Split Panels**: Desktop side-by-side memory maps automatically reflow into collapsible, gesture-friendly tabs on phones and tablets.
 
 ---
 
@@ -248,8 +309,8 @@ An interactive challenge suite designed to train engineering vigilance against s
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/raghavendravarma/c-engineering-academy.git
-cd c-engineering-academy
+git clone https://github.com/Raghavendra-varma-au-cse/C-LangPrep.git
+cd C-LangPrep
 
 # Install dependencies
 npm install

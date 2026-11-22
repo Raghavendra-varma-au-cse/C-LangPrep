@@ -40,7 +40,14 @@ EOF
     chmod +x "$SHORTCUT"
     echo "Created macOS desktop shortcut at: $SHORTCUT"
 else
-    # Linux .desktop file
+    # Linux .desktop file (Ubuntu, Debian, Fedora, Arch, openSUSE)
+    DISTRO="Linux"
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        DISTRO=$NAME
+    fi
+    echo "Detected platform: $DISTRO"
+
     SHORTCUT="$DESKTOP_DIR/c-academy.desktop"
     cat << EOF > "$SHORTCUT"
 [Desktop Entry]
@@ -54,7 +61,14 @@ Terminal=true
 Categories=Education;Development;
 EOF
     chmod +x "$SHORTCUT"
-    echo "Created Linux desktop shortcut at: $SHORTCUT"
+    
+    # Also register in applications menu if available
+    APP_MENU_DIR="$HOME/.local/share/applications"
+    if [ -d "$APP_MENU_DIR" ]; then
+        cp "$SHORTCUT" "$APP_MENU_DIR/c-academy.desktop"
+        echo "Registered in Applications Menu: $APP_MENU_DIR/c-academy.desktop"
+    fi
+    echo "Created Linux desktop shortcut on Home screen: $SHORTCUT"
 fi
 
 echo ""
