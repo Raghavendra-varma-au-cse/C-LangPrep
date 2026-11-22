@@ -88,14 +88,16 @@ export const CodeMonkeyPuzzleGame: React.FC = () => {
 
   return (
     <div className="bg-white border-2 border-[#ede3d2] rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
-      {/* Top Banner with Monkey Score */}
+      {/* Top Banner */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b-2 border-[#ede3d2]">
         <div className="flex items-center gap-3">
-          <span className="text-4xl">🐵</span>
+          <div className="w-12 h-12 rounded-2xl bg-[#fdf5ea] border border-[#f3d4b1] flex items-center justify-center p-2 shadow-2xs">
+            <img src="/c-academy-icon.svg" alt="C Academy Logo" className="w-full h-full object-contain" />
+          </div>
           <div>
             <div className="flex items-center gap-2">
               <h2 className="text-xl md:text-2xl font-black text-[#2b2520]">
-                CodeMonkey C Puzzle Master (100+ Missions)
+                C Logic Puzzle Architect (100+ Missions)
               </h2>
               <span className="text-xs bg-[#fdf5ea] text-[#e57e25] border border-[#f3d4b1] px-2.5 py-0.5 rounded-full font-bold">
                 Level {currentLevel} of 100

@@ -43,7 +43,9 @@ function AcademyAppContent() {
       <header className="bg-white border-b-2 border-[#ede3d2] px-4 md:px-8 py-3.5 sticky top-0 z-30 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span className="text-3xl">🐵</span>
+            <div className="w-10 h-10 rounded-xl bg-[#fdf5ea] border border-[#f3d4b1] flex items-center justify-center p-1.5 shadow-2xs shrink-0">
+              <img src="/c-academy-icon.svg" alt="C Academy Icon" className="w-full h-full object-contain" />
+            </div>
             <div>
               <h1 className="text-lg md:text-xl font-black text-[#2b2520] tracking-tight flex items-center gap-2">
                 <span>The Complete C Engineering Academy</span>
@@ -303,22 +305,26 @@ function AcademyAppContent() {
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <footer className="mt-12 py-6 border-t-2 border-[#ede3d2] text-center text-xs text-[#7d7065] bg-white">
-        <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🐵</span>
+      {/* Sleek, Synchronized Footer with Legal Clarity */}
+      <footer className="mt-8 py-3.5 border-t-2 border-[#ede3d2] text-xs text-[#7d7065] bg-white shadow-2xs">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-6 h-6 rounded-lg bg-[#fdf5ea] border border-[#f3d4b1] flex items-center justify-center p-1 shrink-0">
+              <img src="/c-academy-icon.svg" alt="C Academy Logo" className="w-full h-full object-contain" />
+            </div>
             <span className="font-bold text-[#2b2520]">The Complete C Engineering Academy</span>
-            <span className="text-slate-400">&bull;</span>
-            <span>150 Missions &bull; Real WebAssembly C Engine &bull; Systems Architectures</span>
+            <span className="text-slate-300 hidden sm:inline">&bull;</span>
+            <span className="hidden sm:inline text-[#7d7065]">
+              Original Architecture &bull; MIT License &bull; Free & Open-Source
+            </span>
           </div>
-          <div>
-            <span>Developed with lots of ☕ coffee by </span>
+          <div className="flex items-center gap-2 text-[#7d7065]">
+            <span>Developed with lots of ☕ coffee by</span>
             <a
               href="https://raghavendravarma.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-[#e57e25] hover:underline"
+              className="font-bold text-[#e57e25] hover:text-[#c46210] hover:underline transition-colors"
             >
               Raghavendra Varma
             </a>
