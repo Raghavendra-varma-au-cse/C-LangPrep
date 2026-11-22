@@ -16,11 +16,26 @@
   <a href="https://raghavendravarma.vercel.app/"><img src="https://img.shields.io/badge/Architect-Raghavendra%20Varma-f48c06?style=flat" alt="Author Portfolio" /></a>
 </p>
 
+<p align="center">
+  <a href="https://raghavendra-varma-au-cse.github.io/C-LangPrep/"><img src="https://img.shields.io/badge/Live%20Web%20App-GitHub%20Pages-2ea44f?style=for-the-badge&logo=githubpages&logoColor=white" alt="Live Demo on GitHub Pages" /></a>
+  <a href="https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases"><img src="https://img.shields.io/badge/Desktop%20Installers-Windows%20%7C%20macOS%20%7C%20Linux-e57e25?style=for-the-badge&logo=electron&logoColor=white" alt="Download Desktop App" /></a>
+</p>
+
+---
+
+## 🌐 Live Web Application & Cloud Deployment
+
+- **Official GitHub Pages URL**: [https://raghavendra-varma-au-cse.github.io/C-LangPrep/](https://raghavendra-varma-au-cse.github.io/C-LangPrep/)
+- **Architect Portfolio & Showcase**: [https://raghavendravarma.vercel.app/](https://raghavendravarma.vercel.app/)
+- **GitHub Source Repository**: [https://github.com/Raghavendra-varma-au-cse/C-LangPrep](https://github.com/Raghavendra-varma-au-cse/C-LangPrep)
+
 ---
 
 ## 📖 Table of Contents
 - [Executive Overview](#-executive-overview)
 - [System Architecture](#-system-architecture)
+- [Desktop Application & Native Installers (.exe, .dmg, .AppImage)](#-desktop-application--native-installers-exe-dmg-appimage)
+- [Automated Desktop Shortcut Creation](#-automated-desktop-shortcut-creation)
 - [Core Interactive Laboratories](#-core-interactive-laboratories)
   - [1. 150-Level Progressive Silicon Curriculum](#1-150-level-progressive-silicon-curriculum)
   - [2. C Error Doctor & Diagnostic Lab](#2-c-error-doctor--diagnostic-lab)
@@ -34,7 +49,7 @@
   - [10. Global C Learning Ecosystem & Curated Paths](#10-global-c-learning-ecosystem--curated-paths)
 - [Smart C Detective & Hidden Traps](#-smart-c-detective--hidden-traps)
 - [Local Development & Quickstart](#-local-development--quickstart)
-- [Deployment & GitHub Pages Hosting](#-deployment--github-pages-hosting)
+- [GitHub Pages Continuous Deployment (CI/CD)](#-github-pages-continuous-deployment-cicd)
 - [Legal Clarity, Rights & Educational Disclaimer](#-legal-clarity-rights--educational-disclaimer)
 - [Crafted With Coffee](#-crafted-with-coffee)
 
@@ -82,6 +97,48 @@
 |      Console Output Stream  |  RAM Footprint (Bytes)  |  CPU Clock Cycles       |
 +---------------------------------------------------------------------------------+
 ```
+
+---
+
+## 💻 Desktop Application & Native Installers (.exe, .dmg, .AppImage)
+
+The Complete C Engineering Academy can be executed as a native desktop application with full offline capability, zero browser clutter, and local port execution.
+
+### Available Distribution Packages
+
+| Operating System | Package Type | Target Architecture | Description |
+| :--- | :--- | :--- | :--- |
+| **Windows** | `Setup.exe` (NSIS) | x64 | Single-click installer; creates Desktop & Start Menu shortcut icons |
+| **Windows** | `Portable.exe` | x64 | Standalone executable; zero installation required |
+| **Windows** | `install-desktop-app.bat` | Universal | Single-click script that creates the desktop shortcut icon and serves on `localhost:3000` |
+| **macOS** | `.dmg` / `.zip` | Universal (Apple Silicon & Intel) | Drag-and-drop installer for macOS |
+| **macOS / Linux** | `install-desktop-app.sh` | Universal | Creates desktop launcher (`.command` / `.desktop`) and runs local engine |
+| **Linux** | `.AppImage` / `.deb` | x64 | Native binaries for Ubuntu, Debian, Fedora, and Arch |
+
+---
+
+## 🏠 Automated Desktop Shortcut Creation
+
+Our platform provides automatic shortcut generation so you can launch the academy straight from your Home / Desktop screen with the official icon:
+
+### On Windows
+Run the single-click installer batch script:
+```cmd
+install-desktop-app.bat
+```
+*Or generate the shortcut directly via PowerShell:*
+```cmd
+npm run shortcut
+```
+> **Result**: Creates `The Complete C Academy.lnk` on your Windows Desktop pointing to the local runner with the high-resolution vector icon.
+
+### On macOS & Linux
+Run the single-click shell installer:
+```bash
+chmod +x install-desktop-app.sh
+./install-desktop-app.sh
+```
+> **Result**: Creates `The Complete C Academy.command` (macOS) or `c-academy.desktop` (Linux) directly on your Desktop.
 
 ---
 
@@ -211,16 +268,22 @@ npm run start
 
 ---
 
-## 🌐 Deployment & GitHub Pages Hosting
+## 🌐 GitHub Pages Continuous Deployment (CI/CD)
 
-The application is engineered to deploy seamlessly on static hosting services (such as **GitHub Pages**, **Vercel**, and **Netlify**).
+The application is deployed live to **GitHub Pages** with automated CI/CD via GitHub Actions:
 
-1. In `next.config.ts`, verify the configuration is set for static export (`output: 'export'`) when targeting GitHub Pages.
-2. Run the build pipeline:
-   ```bash
-   npm run build
-   ```
-3. The standalone production bundle is compiled directly to the `out/` folder, ready for deployment.
+- **Live URL**: [https://raghavendra-varma-au-cse.github.io/C-LangPrep/](https://raghavendra-varma-au-cse.github.io/C-LangPrep/)
+- **Workflow File**: `.github/workflows/deploy.yml` triggers on every push to `main` branch.
+- **Static Export**: Runs `npm run export` with basePath `/C-LangPrep/` and automatically publishes `out/` to the `gh-pages` environment with zero Jekyll interference (`.nojekyll`).
+
+### Manual Export & Preview
+```bash
+# 1. Export static bundle
+npm run export
+
+# 2. Test locally on isolated port
+node scripts/serve-local.js
+```
 
 ---
 

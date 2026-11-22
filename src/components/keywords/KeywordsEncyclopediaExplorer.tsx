@@ -526,11 +526,10 @@ export const KeywordsEncyclopediaExplorer: React.FC = () => {
 
             {testResult ? (
               <div
-                className={`p-3 rounded-xl border ${
-                  testResult.isSuccess
-                    ? 'bg-emerald-950/60 border-emerald-500 text-emerald-300'
-                    : 'bg-rose-950/60 border-rose-500 text-rose-300'
-                }`}
+                className={`p-3 rounded-xl border ${testResult.isSuccess
+                  ? 'bg-emerald-950/60 border-emerald-500 text-emerald-300'
+                  : 'bg-rose-950/60 border-rose-500 text-rose-300'
+                  }`}
               >
                 <div className="flex items-center gap-1.5 font-bold mb-1">
                   {testResult.isSuccess ? (

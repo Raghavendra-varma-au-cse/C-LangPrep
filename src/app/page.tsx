@@ -14,6 +14,7 @@ import { KeywordsEncyclopediaExplorer } from '@/components/keywords/KeywordsEncy
 import { GlobalCResourcesExplorer } from '@/components/resources/GlobalCResourcesExplorer';
 import { KeywordsDictionaryModal } from '@/components/KeywordsDictionaryModal';
 import { SmartTrickTutorModal } from '@/components/ai-tutor/SmartTrickTutorModal';
+import { DesktopDownloadModal } from '@/components/desktop/DesktopDownloadModal';
 import { LearningProvider, useLearningContext } from '@/context/LearningContext';
 
 import {
@@ -28,7 +29,8 @@ import {
   FolderGit2,
   Brain,
   Award,
-  Globe
+  Globe,
+  Laptop
 } from 'lucide-react';
 
 function AcademyAppContent() {
@@ -36,6 +38,7 @@ function AcademyAppContent() {
   const [activeTab, setActiveTab] = useState<'mastery-150' | 'error-lab' | 'multifile' | 'blocks' | 'line-by-line' | 'daily' | 'real-world' | 'playground' | 'keywords' | 'resources'>('mastery-150');
   const [isDictionaryOpen, setIsDictionaryOpen] = useState<boolean>(false);
   const [isDetectiveOpen, setIsDetectiveOpen] = useState<boolean>(false);
+  const [isDownloadOpen, setIsDownloadOpen] = useState<boolean>(false);
 
   return (
     <div className="min-h-screen bg-[#fffdf9] text-[#2b2520] flex flex-col font-sans selection:bg-[#f48c06] selection:text-white pb-12">
@@ -59,8 +62,17 @@ function AcademyAppContent() {
             </div>
           </div>
 
-          {/* Banana Score & Smart Detective Button */}
+          {/* Banana Score & Smart Detective & Desktop App Button */}
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsDownloadOpen(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black bg-[#2b2520] hover:bg-[#433b35] text-white cursor-pointer transition shadow-2xs"
+            >
+              <Laptop className="w-4 h-4 text-[#e57e25]" />
+              <span className="hidden sm:inline">Desktop App</span>
+              <span className="text-[10px] bg-[#e57e25] text-white px-1.5 py-0.2 rounded font-bold">.exe / .dmg</span>
+            </button>
+
             <button
               onClick={() => setIsDetectiveOpen(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-black bg-[#fdf5ea] hover:bg-[#faebd7] border-2 border-[#e57e25] text-[#b45309] cursor-pointer transition shadow-2xs"
@@ -340,6 +352,10 @@ function AcademyAppContent() {
       <SmartTrickTutorModal
         isOpen={isDetectiveOpen}
         onClose={() => setIsDetectiveOpen(false)}
+      />
+      <DesktopDownloadModal
+        isOpen={isDownloadOpen}
+        onClose={() => setIsDownloadOpen(false)}
       />
     </div>
   );

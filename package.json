@@ -1,30 +1,92 @@
 {
   "name": "c-mastery",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "The Complete C Engineering Academy & Interactive Silicon Playground",
+  "author": "Raghavendra Varma",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "export": "cross-env EXPORT=true next build",
     "start": "next start",
+    "serve": "node scripts/serve-local.js",
+    "shortcut": "powershell -ExecutionPolicy Bypass -File scripts/create-desktop-shortcut.ps1",
+    "electron:dev": "electron .",
+    "electron:pack": "npm run export && electron-builder --dir",
+    "dist": "npm run export && electron-builder",
+    "dist:win": "npm run export && electron-builder --win",
+    "dist:mac": "npm run export && electron-builder --mac",
+    "dist:linux": "npm run export && electron-builder --linux",
     "lint": "eslint"
   },
-  "dependencies": {
+  "build": {
+    "appId": "com.cacademy.app",
+    "productName": "The Complete C Academy",
+    "copyright": "Copyright © 2026 Raghavendra Varma",
+    "npmRebuild": false,
+    "nodeGypRebuild": false,
+    "asar": true,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "out/**/*",
+      "build/**/*",
+      "!**/node_modules/**"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "The Complete C Academy"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "build/icon.png",
+      "category": "public.app-category.education"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png",
+      "category": "Education"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@tailwindcss/turbopack": "4.3.3",
     "@types/canvas-confetti": "^1.9.0",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "canvas-confetti": "^1.9.4",
+    "cross-env": "^10.1.0",
+    "electron": "^45.4.1",
+    "electron-builder": "^26.18.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
     "framer-motion": "^14.14.0",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^1.73.0",
     "next": "16.4.6",
     "picoc-js": "^1.0.12",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
-  },
-  "devDependencies": {
-    "@tailwindcss/turbopack": "4.3.3",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.6",
+    "react-dom": "19.3.0",
     "tailwindcss": "4.3.3",
     "typescript": "^5"
   }
