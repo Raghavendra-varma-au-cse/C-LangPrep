@@ -133,18 +133,29 @@ export const DesktopDownloadModal: React.FC<DesktopDownloadModalProps> = ({
                       Installs the full native application, automatically creates the desktop shortcut icon on your Home screen, registers in Start Menu, and runs 100% offline.
                     </p>
                     <div className="text-[11px] font-mono text-[#e57e25] font-semibold">
-                      Package: The Complete C Academy Setup 1.0.0.exe (x64)
+                      Package: The.Complete.C.Academy.Setup.1.0.0.exe (116 MB)
                     </div>
                   </div>
-                  <a
-                    href="https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black bg-[#e57e25] hover:bg-[#c46210] text-white shadow-sm transition shrink-0 cursor-pointer"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span>Download .exe</span>
-                  </a>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href="https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/download/v1.0.0/The.Complete.C.Academy.Setup.1.0.0.exe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-black bg-[#e57e25] hover:bg-[#c46210] text-white shadow-sm transition shrink-0 cursor-pointer"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Download Installer (.exe)</span>
+                    </a>
+                    <a
+                      href="https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/download/v1.0.0/The.Complete.C.Academy.1.0.0.exe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold border-2 border-[#e57e25] text-[#e57e25] hover:bg-[#e57e25]/10 transition shrink-0 cursor-pointer"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Portable (.exe)</span>
+                    </a>
+                  </div>
                 </div>
 
                 {/* Method 2: Single-Click Script Installer */}

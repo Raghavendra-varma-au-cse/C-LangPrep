@@ -105,19 +105,20 @@
 
 The Complete C Engineering Academy can be executed as a native desktop application with full offline capability, zero browser clutter, and local port execution.
 
-### Available Distribution Packages
+### Available Distribution Packages & Direct Downloads
 
-| Operating System | Package Type | Target Architecture | Description |
-| :--- | :--- | :--- | :--- |
-| **Windows** | `Setup.exe` (NSIS) | x64 | Single-click installer; creates Desktop & Start Menu shortcut icons |
-| **Windows** | `Portable.exe` | x64 | Standalone executable; zero installation required |
-| **Windows** | `install-desktop-app.bat` | Universal | Single-click script that creates the desktop shortcut icon and serves on `localhost:3000` |
-| **macOS** | `.dmg` / `.zip` | Universal (Apple Silicon & Intel) | Drag-and-drop native installer for macOS |
-| **macOS / Linux** | `install-desktop-app.sh` | Universal | Auto-detects OS; creates desktop launcher (`.command` / `.desktop`) and runs local engine |
-| **Ubuntu / Debian** | `.deb` | x64 | Native Debian package for Ubuntu, Mint, and Pop!_OS |
-| **Fedora / RHEL** | `.rpm` | x64 | Native RPM package for Fedora, CentOS, RHEL, and openSUSE |
-| **Universal Linux** | `.AppImage` / `.tar.gz` | x64 | Standalone binaries for all Linux distributions |
-| **Android / iOS** | `PWA Manifest` | Phone & Tablet | 1-tap "Add to Home Screen" with native standalone full-screen execution |
+| Operating System | Package Type | Direct Download / Command | Target Architecture | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| **Windows** | `Setup.exe` (NSIS) | [📥 Download Setup 1.0.0.exe](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/download/v1.0.0/The.Complete.C.Academy.Setup.1.0.0.exe) | x64 (116 MB) | One-click installer; auto-creates Desktop shortcut icon & Start Menu entry |
+| **Windows** | `Portable.exe` | [📥 Download Portable 1.0.0.exe](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/download/v1.0.0/The.Complete.C.Academy.1.0.0.exe) | x64 (106 MB) | Standalone portable executable; run instantly without installation |
+| **Windows** | `Portable .zip` | [📥 Download win-x64.zip](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/download/v1.0.0/The-Complete-C-Academy-1.0.0-win-x64.zip) | x64 (152 MB) | Standalone portable unpacked directory package |
+| **Windows** | `install-desktop-app.bat` | Run `.\install-desktop-app.bat` | Universal | Single-click script that creates the desktop shortcut icon and serves on `localhost:3000` |
+| **macOS** | `.dmg` / `.zip` | [GitHub Releases](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/tag/v1.0.0) | Apple Silicon & Intel | Drag-and-drop native installer for macOS |
+| **macOS / Linux** | `install-desktop-app.sh` | Run `./install-desktop-app.sh` | Universal | Auto-detects OS; creates desktop launcher (`.command` / `.desktop`) and runs local engine |
+| **Ubuntu / Debian** | `.deb` | [GitHub Releases](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/tag/v1.0.0) | x64 | Native Debian package for Ubuntu, Mint, and Pop!_OS |
+| **Fedora / RHEL** | `.rpm` | [GitHub Releases](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/tag/v1.0.0) | x64 | Native RPM package for Fedora, CentOS, RHEL, and openSUSE |
+| **Universal Linux** | `.AppImage` | [GitHub Releases](https://github.com/Raghavendra-varma-au-cse/C-LangPrep/releases/tag/v1.0.0) | x64 | Standalone binaries for all Linux distributions |
+| **Android / iOS** | `PWA Manifest` | Add to Home Screen | Phone & Tablet | 1-tap "Add to Home Screen" with native standalone full-screen execution |
 
 ---
 
