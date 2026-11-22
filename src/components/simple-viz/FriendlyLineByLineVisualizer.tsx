@@ -41,6 +41,32 @@ export const FriendlyLineByLineVisualizer: React.FC = () => {
     setRealOutput(null);
     setRealError(null);
     setRealExitCode(null);
+
+    let isCancelled = false;
+    const runAsync = async () => {
+      try {
+        const data = await requestCompileC(state.activeCode);
+        if (!isCancelled) {
+          setRealExitCode(data.exitCode ?? 0);
+          setRealTelemetry({
+            memoryBytes: data.memoryUsageBytes || 1024,
+            cpuCycles: data.cpuCyclesEstimated || 120
+          });
+          if (data.exitCode === 0) {
+            setRealOutput(data.stdout || null);
+          } else {
+            setRealError(data.stderr || data.error || null);
+          }
+        }
+      } catch {
+        // silent fallback to step-by-step parsed simulation
+      }
+    };
+    runAsync();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [state.activeCode]);
 
   // When user edits code, parse it dynamically on the fly
